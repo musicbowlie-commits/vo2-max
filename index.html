@@ -7,52 +7,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0a;
-    --surface: #131313;
-    --surface2: #1c1c1c;
-    --border: rgba(255,255,255,0.07);
-    --accent: #e8ff47;
-    --accent2: #ff6b35;
-    --text: #f0ede8;
-    --muted: #6b6b6b;
-    --easy: #4ade80;
-    --tempo: #60a5fa;
-    --vo2: #f87171;
-    --rest: #6b7280;
+    --bg: #0a0a0a; --surface: #131313; --surface2: #1c1c1c;
+    --border: rgba(255,255,255,0.07); --accent: #e8ff47; --accent2: #ff6b35;
+    --text: #f0ede8; --muted: #6b6b6b;
+    --easy: #4ade80; --tempo: #60a5fa; --vo2: #f87171; --rest: #6b7280;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
 
-  /* Header */
   .header { padding: 3rem 2rem 2rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
   .header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(232,255,71,0.06) 0%, transparent 70%); pointer-events: none; }
   .header-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem; }
-  .header-left {}
   .header-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
-  .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: 0.02em; line-height: 0.95; color: var(--text); }
+  .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: 0.02em; line-height: 0.95; }
   .header h1 span { color: var(--accent); }
   .header-meta { display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
   .meta-item { font-size: 13px; color: var(--muted); }
   .meta-item strong { color: var(--text); font-weight: 500; }
 
-  /* Strava connect */
   .strava-panel { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; padding-top: 0.5rem; }
-  .strava-btn {
-    display: flex; align-items: center; gap: 10px;
-    background: #FC4C02; color: white;
-    border: none; border-radius: 6px;
-    padding: 10px 18px; cursor: pointer;
-    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
-    text-decoration: none; transition: opacity 0.15s; white-space: nowrap;
-  }
+  .strava-btn { display: flex; align-items: center; gap: 10px; background: #FC4C02; color: white; border: none; border-radius: 6px; padding: 10px 18px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; text-decoration: none; transition: opacity 0.15s; white-space: nowrap; }
   .strava-btn:hover { opacity: 0.88; }
-  .strava-btn svg { flex-shrink: 0; }
   .strava-connected { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--easy); font-family: 'DM Mono', monospace; }
   .strava-avatar { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--easy); object-fit: cover; }
   .strava-disconnect { font-size: 11px; color: var(--muted); background: none; border: none; cursor: pointer; text-decoration: underline; font-family: 'DM Sans', sans-serif; }
   .strava-disconnect:hover { color: var(--text); }
 
-  /* Pace bar */
   .pace-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 2rem; overflow-x: auto; }
   .pace-bar-inner { max-width: 900px; margin: 0 auto; display: flex; gap: 2rem; align-items: center; min-width: 560px; }
   .pace-label { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; }
@@ -61,21 +41,6 @@
   .pace-chip-text { font-size: 12px; font-family: 'DM Mono', monospace; }
   .pace-chip-name { color: var(--muted); margin-right: 4px; }
 
-  /* Recent runs bar */
-  #recentRunsBar { display: none; background: var(--surface2); border-bottom: 1px solid var(--border); padding: 0.75rem 2rem; }
-  .runs-bar-inner { max-width: 900px; margin: 0 auto; }
-  .runs-bar-title { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
-  .runs-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-  .run-chip {
-    font-size: 12px; font-family: 'DM Mono', monospace;
-    padding: 4px 10px; border-radius: 4px;
-    background: var(--surface); border: 1px solid var(--border);
-    color: var(--muted); cursor: pointer; transition: all 0.15s; white-space: nowrap;
-  }
-  .run-chip:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
-  .run-chip.matched { border-color: var(--easy); color: var(--easy); }
-
-  /* Week nav */
   .week-nav { max-width: 900px; margin: 2rem auto 0; padding: 0 2rem; display: flex; gap: 8px; flex-wrap: wrap; }
   .week-btn { font-family: 'DM Mono', monospace; font-size: 12px; padding: 6px 14px; border-radius: 4px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.15s; letter-spacing: 0.05em; }
   .week-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
@@ -83,16 +48,13 @@
   .week-btn.recovery { border-color: rgba(255,107,53,0.4); }
   .week-btn.recovery.active { background: var(--accent2); border-color: var(--accent2); color: white; }
 
-  /* Main */
   .main { max-width: 900px; margin: 0 auto; padding: 2rem; }
 
-  /* Progress */
   .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
   .progress-label { display: flex; justify-content: space-between; font-size: 12px; font-family: 'DM Mono', monospace; color: var(--muted); margin-bottom: 8px; }
   .progress-track { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.4s ease; }
 
-  /* Week header */
   .week-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap; }
   .week-title { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; letter-spacing: 0.02em; line-height: 1; }
   .week-focus { font-size: 13px; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
@@ -101,9 +63,8 @@
   .stat-val { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 500; color: var(--accent); }
   .stat-key { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
 
-  /* Sessions */
   .sessions { display: flex; flex-direction: column; gap: 12px; }
-  .session-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem 1.25rem 1.5rem; display: grid; grid-template-columns: 100px 1fr auto; gap: 1rem; align-items: start; transition: border-color 0.15s; position: relative; overflow: hidden; }
+  .session-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 100px 1fr auto; gap: 1rem; align-items: start; transition: border-color 0.15s; position: relative; overflow: hidden; }
   .session-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
   .session-card.easy::before { background: var(--easy); }
   .session-card.tempo::before { background: var(--tempo); }
@@ -123,58 +84,86 @@
   .session-dist { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; color: var(--text); }
   .session-dist-unit { font-size: 11px; color: var(--muted); }
   .session-pace { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 4px; }
-  .session-check { position: absolute; top: 1rem; right: 1rem; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; background: transparent; flex-shrink: 0; }
+  .session-check { position: absolute; top: 1rem; right: 1rem; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; background: transparent; }
   .session-check:hover { border-color: var(--accent); }
   .session-check.done { background: var(--accent); border-color: var(--accent); }
   .session-check.done::after { content: '✓'; font-size: 12px; color: #0a0a0a; font-weight: 700; }
 
-  /* Strava match */
-  .strava-match {
-    margin-top: 10px; padding: 10px 12px;
+  /* Link activity area */
+  .link-activity-area { margin-top: 12px; }
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-family: 'DM Mono', monospace;
+    padding: 5px 12px; border-radius: 4px; cursor: pointer;
+    border: 1px dashed rgba(252,76,2,0.4); color: #FC4C02;
+    background: rgba(252,76,2,0.05); transition: all 0.15s;
+  }
+  .link-btn:hover { background: rgba(252,76,2,0.1); border-color: #FC4C02; }
+  .link-btn.hidden { display: none; }
+
+  /* Activity picker dropdown */
+  .activity-picker {
+    margin-top: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: none;
+  }
+  .activity-picker.open { display: block; }
+  .picker-header { padding: 8px 12px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .picker-close { cursor: pointer; color: var(--muted); font-size: 16px; line-height: 1; }
+  .picker-close:hover { color: var(--text); }
+  .picker-list { max-height: 220px; overflow-y: auto; }
+  .picker-item {
+    padding: 10px 12px; cursor: pointer; border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center;
+    transition: background 0.1s;
+  }
+  .picker-item:last-child { border-bottom: none; }
+  .picker-item:hover { background: rgba(255,255,255,0.04); }
+  .picker-item-name { font-size: 13px; font-weight: 500; color: var(--text); }
+  .picker-item-meta { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
+  .picker-item-date { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); text-align: right; }
+  .picker-empty { padding: 1.5rem; text-align: center; font-size: 13px; color: var(--muted); }
+
+  /* Linked activity display */
+  .linked-activity {
+    margin-top: 8px; padding: 10px 12px;
     background: rgba(74,222,128,0.05); border: 1px solid rgba(74,222,128,0.15);
-    border-radius: 6px; display: flex; gap: 10px; align-items: flex-start;
+    border-radius: 6px;
   }
-  .strava-match-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .strava-match-data { flex: 1; min-width: 0; }
-  .strava-match-title { font-size: 12px; font-weight: 500; color: var(--easy); margin-bottom: 4px; }
-  .strava-match-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
-  .strava-stat { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); }
-  .strava-stat span { color: var(--text); }
-  .ai-feedback-btn {
-    font-size: 11px; font-family: 'DM Mono', monospace;
-    background: rgba(232,255,71,0.08); border: 1px solid rgba(232,255,71,0.2);
-    color: var(--accent); border-radius: 4px; padding: 4px 10px;
-    cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px;
-  }
+  .linked-activity-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+  .linked-activity-name { font-size: 13px; font-weight: 500; color: var(--easy); }
+  .linked-activity-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+  .unlink-btn { font-size: 11px; color: var(--muted); background: none; border: none; cursor: pointer; font-family: 'DM Mono', monospace; text-decoration: underline; }
+  .unlink-btn:hover { color: var(--text); }
+  .linked-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+  .linked-stat { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); }
+  .linked-stat span { color: var(--text); }
+  .ai-feedback-btn { font-size: 11px; font-family: 'DM Mono', monospace; background: rgba(232,255,71,0.08); border: 1px solid rgba(232,255,71,0.2); color: var(--accent); border-radius: 4px; padding: 4px 10px; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; }
   .ai-feedback-btn:hover { background: rgba(232,255,71,0.14); }
   .ai-feedback-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .ai-feedback-box {
-    margin-top: 8px; padding: 10px 12px;
-    background: var(--surface2); border-radius: 6px;
-    font-size: 13px; color: var(--muted); line-height: 1.6;
-    border-left: 2px solid var(--accent);
-  }
-  .ai-feedback-box strong { color: var(--text); }
+  .ai-feedback-box { margin-top: 8px; padding: 10px 12px; background: var(--surface2); border-radius: 6px; font-size: 13px; color: var(--muted); line-height: 1.6; border-left: 2px solid var(--accent); display: none; }
 
-  /* Recovery banner */
   .recovery-banner { background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.2); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
-  .recovery-icon { font-size: 24px; flex-shrink: 0; margin-top: -2px; }
+  .recovery-icon { font-size: 24px; flex-shrink: 0; }
   .recovery-text { font-size: 13px; color: var(--muted); }
   .recovery-text strong { color: var(--accent2); }
 
-  /* Tips */
   .tips-section { margin-top: 2rem; }
   .tips-title { font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1rem; }
   .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
   .tip-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; font-size: 13px; color: var(--muted); line-height: 1.5; }
-  .tip-card strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 13px; }
+  .tip-card strong { color: var(--text); display: block; margin-bottom: 4px; }
 
   .week-panel { display: none; }
   .week-panel.active { display: block; }
 
-  /* Spinner */
   .spinner { display: inline-block; width: 10px; height: 10px; border: 1.5px solid rgba(232,255,71,0.3); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.6s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  .strava-loading { font-size: 12px; font-family: 'DM Mono', monospace; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-top: 6px; }
 
   @media (max-width: 600px) {
     .session-card { grid-template-columns: 80px 1fr; }
@@ -188,7 +177,7 @@
 
 <div class="header">
   <div class="header-inner">
-    <div class="header-left">
+    <div>
       <div class="header-tag">bowlie · Distrito San Carlos, Panamá</div>
       <h1>8-WEEK<br><span>VO2 MAX</span><br>PLAN</h1>
       <div class="header-meta">
@@ -209,6 +198,9 @@
           <span id="stravaName"></span>
           <button class="strava-disconnect" onclick="disconnectStrava()">disconnect</button>
         </div>
+        <div id="stravaLoadingMsg" class="strava-loading" style="display:none">
+          <span class="spinner"></span> Loading activities...
+        </div>
       </div>
     </div>
   </div>
@@ -221,13 +213,6 @@
     <div class="pace-chip"><div class="pace-dot" style="background:var(--tempo)"></div><span class="pace-chip-text"><span class="pace-chip-name">Tempo</span>5:50–6:10</span></div>
     <div class="pace-chip"><div class="pace-dot" style="background:var(--vo2)"></div><span class="pace-chip-text"><span class="pace-chip-name">VO2 Max</span>5:10–5:30</span></div>
     <div class="pace-chip"><div class="pace-dot" style="background:#a78bfa"></div><span class="pace-chip-text"><span class="pace-chip-name">400m reps</span>2:05–2:12 each</span></div>
-  </div>
-</div>
-
-<div id="recentRunsBar">
-  <div class="runs-bar-inner">
-    <div class="runs-bar-title">Recent Strava Activities</div>
-    <div class="runs-chips" id="runsChips"></div>
   </div>
 </div>
 
@@ -245,344 +230,304 @@
 </div>
 
 <script>
-// ─── CONFIG ───────────────────────────────────────────────
 const STRAVA_CLIENT_ID = '247927';
 const STRAVA_CLIENT_SECRET = '39c85bdfab37fecdda9a90a1fcd213c9bcd35ba4';
-const STRAVA_SCOPE = 'read,activity:read';
 
-// ─── PLAN DATA ────────────────────────────────────────────
 const plan = [
   { week:1, title:"Week 1", focus:"Establish base intensity", totalKm:18, sessions:[
-    { day:"Day 1", type:"vo2", title:"VO2 Max Intervals", dist:6, pace:"mixed", targetPaceMin:310, targetPaceMax:330,
-      desc:"<strong>1.5km easy warm-up</strong> → <strong>4 × 3 min at 5:10–5:30/km</strong> (3 min easy jog between each) → <strong>1.5km cool-down</strong>. Each interval should feel like a 9/10 — barely conversational." },
-    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:6, pace:"7:30–8:10", targetPaceMin:450, targetPaceMax:490,
-      desc:"Fully conversational pace — you must be able to speak in full sentences. Builds aerobic base and aids recovery from Day 1." },
-    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:6, pace:"mixed", targetPaceMin:350, targetPaceMax:370,
-      desc:"<strong>2km easy warm-up</strong> → <strong>15 min at 5:50–6:10/km</strong> (comfortably hard, ~7/10) → <strong>2km cool-down</strong>." },
+    { day:"Day 1", type:"vo2", title:"VO2 Max Intervals", dist:6, pace:"mixed", desc:"<strong>1.5km easy warm-up</strong> → <strong>4 × 3 min at 5:10–5:30/km</strong> (3 min easy jog between each) → <strong>1.5km cool-down</strong>. Each interval should feel like a 9/10 — barely conversational." },
+    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:6, pace:"7:30–8:10", desc:"Fully conversational pace. Builds aerobic base and aids recovery from Day 1." },
+    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:6, pace:"mixed", desc:"<strong>2km easy warm-up</strong> → <strong>15 min at 5:50–6:10/km</strong> (~7/10 effort) → <strong>2km cool-down</strong>." },
   ]},
   { week:2, title:"Week 2", focus:"Build interval volume", totalKm:19.5, sessions:[
-    { day:"Day 1", type:"vo2", title:"VO2 Max Intervals", dist:6.5, pace:"mixed", targetPaceMin:310, targetPaceMax:330,
-      desc:"<strong>1.5km easy warm-up</strong> → <strong>5 × 3 min at 5:10–5:30/km</strong> (3 min easy jog between) → <strong>1.5km cool-down</strong>. Adding one rep from last week." },
-    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:6.5, pace:"7:30–8:10", targetPaceMin:450, targetPaceMax:490,
-      desc:"Conversational pace, no faster than 7:30/km. Add 500m compared to last week." },
-    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:6.5, pace:"mixed", targetPaceMin:350, targetPaceMax:370,
-      desc:"<strong>2km easy warm-up</strong> → <strong>18 min at 5:50–6:10/km</strong> → <strong>2km cool-down</strong>." },
+    { day:"Day 1", type:"vo2", title:"VO2 Max Intervals", dist:6.5, pace:"mixed", desc:"<strong>1.5km easy warm-up</strong> → <strong>5 × 3 min at 5:10–5:30/km</strong> (3 min easy jog between) → <strong>1.5km cool-down</strong>." },
+    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:6.5, pace:"7:30–8:10", desc:"Conversational pace, no faster than 7:30/km. Add 500m compared to last week." },
+    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:6.5, pace:"mixed", desc:"<strong>2km easy warm-up</strong> → <strong>18 min at 5:50–6:10/km</strong> → <strong>2km cool-down</strong>." },
   ]},
   { week:3, title:"Week 3", focus:"Peak interval load", totalKm:21, sessions:[
-    { day:"Day 1", type:"vo2", title:"VO2 Max Intervals", dist:7, pace:"mixed", targetPaceMin:310, targetPaceMax:330,
-      desc:"<strong>1.5km easy warm-up</strong> → <strong>6 × 3 min at 5:10–5:30/km</strong> (3 min easy jog between) → <strong>1.5km cool-down</strong>. Max interval volume for this block." },
-    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:7, pace:"7:30–8:10", targetPaceMin:450, targetPaceMax:490,
-      desc:"Your longest easy run to date. Keep it genuinely easy — heart rate should stay in Zone 2." },
-    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:7, pace:"mixed", targetPaceMin:350, targetPaceMax:370,
-      desc:"<strong>2km easy warm-up</strong> → <strong>20 min at 5:50–6:10/km</strong> → <strong>2km cool-down</strong>." },
+    { day:"Day 1", type:"vo2", title:"VO2 Max Intervals", dist:7, pace:"mixed", desc:"<strong>1.5km easy warm-up</strong> → <strong>6 × 3 min at 5:10–5:30/km</strong> (3 min easy jog between) → <strong>1.5km cool-down</strong>." },
+    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:7, pace:"7:30–8:10", desc:"Your longest easy run to date. Keep it genuinely easy — heart rate should stay in Zone 2." },
+    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:7, pace:"mixed", desc:"<strong>2km easy warm-up</strong> → <strong>20 min at 5:50–6:10/km</strong> → <strong>2km cool-down</strong>." },
   ]},
   { week:4, title:"Week 4", focus:"Recovery — cut 30% volume", totalKm:15, recovery:true, sessions:[
-    { day:"Day 1", type:"vo2", title:"VO2 Max Intervals (reduced)", dist:5, pace:"mixed", targetPaceMin:310, targetPaceMax:330,
-      desc:"<strong>1.5km easy warm-up</strong> → <strong>4 × 3 min at 5:10–5:30/km</strong> → <strong>1.5km cool-down</strong>. Drop back to 4 reps. Absorb the gains from weeks 1–3." },
-    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:5, pace:"7:30–8:10", targetPaceMin:450, targetPaceMax:490,
-      desc:"Short, fully easy run. Focus on form and relaxation." },
-    { day:"Day 3", type:"easy", title:"Easy Long Run", dist:5, pace:"7:30–8:10", targetPaceMin:450, targetPaceMax:490,
-      desc:"Replace tempo with a second easy run this week. No intensity — just time on feet." },
+    { day:"Day 1", type:"vo2", title:"VO2 Max Intervals (reduced)", dist:5, pace:"mixed", desc:"<strong>1.5km easy warm-up</strong> → <strong>4 × 3 min at 5:10–5:30/km</strong> → <strong>1.5km cool-down</strong>. Absorb the gains from weeks 1–3." },
+    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:5, pace:"7:30–8:10", desc:"Short, fully easy run. Focus on form and relaxation." },
+    { day:"Day 3", type:"easy", title:"Easy Long Run", dist:5, pace:"7:30–8:10", desc:"Replace tempo with a second easy run. No intensity — just time on feet." },
   ]},
   { week:5, title:"Week 5", focus:"Introduce 400m reps", totalKm:20, sessions:[
-    { day:"Day 1", type:"vo2", title:"400m Repeats", dist:6.5, pace:"mixed", targetPaceMin:125, targetPaceMax:132,
-      desc:"<strong>1.8km easy warm-up</strong> → <strong>6 × 400m at 2:05–2:12 each</strong> (90s walking rest between) → <strong>1.5km cool-down</strong>. Each 400m should feel controlled but very hard." },
-    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:7, pace:"7:30–8:10", targetPaceMin:450, targetPaceMax:490,
-      desc:"Back up to 7km easy. The day after 400m reps your legs may feel heavy — keep the pace honest." },
-    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:6.5, pace:"mixed", targetPaceMin:340, targetPaceMax:360,
-      desc:"<strong>2km easy warm-up</strong> → <strong>18 min at 5:40–6:00/km</strong> → <strong>2km cool-down</strong>." },
+    { day:"Day 1", type:"vo2", title:"400m Repeats", dist:6.5, pace:"mixed", desc:"<strong>1.8km easy warm-up</strong> → <strong>6 × 400m at 2:05–2:12 each</strong> (90s walking rest between) → <strong>1.5km cool-down</strong>." },
+    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:7, pace:"7:30–8:10", desc:"Back up to 7km easy. Legs may feel heavy after 400m reps — keep the pace honest." },
+    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:6.5, pace:"mixed", desc:"<strong>2km easy warm-up</strong> → <strong>18 min at 5:40–6:00/km</strong> → <strong>2km cool-down</strong>." },
   ]},
   { week:6, title:"Week 6", focus:"Push 400m volume", totalKm:21.5, sessions:[
-    { day:"Day 1", type:"vo2", title:"400m Repeats", dist:7, pace:"mixed", targetPaceMin:125, targetPaceMax:130,
-      desc:"<strong>1.8km easy warm-up</strong> → <strong>8 × 400m at 2:05–2:10 each</strong> (90s walking rest) → <strong>1.5km cool-down</strong>. Bank energy in early reps for reps 6–8." },
-    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:7.5, pace:"7:20–8:00", targetPaceMin:440, targetPaceMax:480,
-      desc:"Your aerobic base is maturing — easy pace may start to feel more comfortable at 7:20/km." },
-    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:7, pace:"mixed", targetPaceMin:340, targetPaceMax:360,
-      desc:"<strong>2km easy warm-up</strong> → <strong>21 min at 5:40–6:00/km</strong> → <strong>2km cool-down</strong>." },
+    { day:"Day 1", type:"vo2", title:"400m Repeats", dist:7, pace:"mixed", desc:"<strong>1.8km easy warm-up</strong> → <strong>8 × 400m at 2:05–2:10 each</strong> (90s walking rest) → <strong>1.5km cool-down</strong>." },
+    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:7.5, pace:"7:20–8:00", desc:"Your aerobic base is maturing. Easy pace may start to feel comfortable at 7:20/km." },
+    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:7, pace:"mixed", desc:"<strong>2km easy warm-up</strong> → <strong>21 min at 5:40–6:00/km</strong> → <strong>2km cool-down</strong>." },
   ]},
   { week:7, title:"Week 7", focus:"Peak week — maximum load", totalKm:23, sessions:[
-    { day:"Day 1", type:"vo2", title:"400m Repeats", dist:7.5, pace:"mixed", targetPaceMin:123, targetPaceMax:130,
-      desc:"<strong>1.8km easy warm-up</strong> → <strong>10 × 400m at 2:03–2:10 each</strong> (90s walking rest) → <strong>1.5km cool-down</strong>. Treat this like a race day." },
-    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:8, pace:"7:20–8:00", targetPaceMin:440, targetPaceMax:480,
-      desc:"Your longest easy run of the plan. By now easy pace should feel genuinely comfortable." },
-    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:7.5, pace:"mixed", targetPaceMin:340, targetPaceMax:355,
-      desc:"<strong>2km easy warm-up</strong> → <strong>25 min at 5:40–5:55/km</strong> → <strong>2km cool-down</strong>." },
+    { day:"Day 1", type:"vo2", title:"400m Repeats", dist:7.5, pace:"mixed", desc:"<strong>1.8km easy warm-up</strong> → <strong>10 × 400m at 2:03–2:10 each</strong> (90s walking rest) → <strong>1.5km cool-down</strong>. Treat this like a race day." },
+    { day:"Day 2", type:"easy", title:"Easy Aerobic Run", dist:8, pace:"7:20–8:00", desc:"Your longest easy run of the plan. By now easy pace should feel genuinely comfortable." },
+    { day:"Day 3", type:"tempo", title:"Tempo Run", dist:7.5, pace:"mixed", desc:"<strong>2km easy warm-up</strong> → <strong>25 min at 5:40–5:55/km</strong> → <strong>2km cool-down</strong>." },
   ]},
   { week:8, title:"Week 8", focus:"Taper — prepare to test yourself", totalKm:14, recovery:true, sessions:[
-    { day:"Day 1", type:"vo2", title:"400m Sharpeners", dist:5, pace:"mixed", targetPaceMin:120, targetPaceMax:125,
-      desc:"<strong>1.5km easy warm-up</strong> → <strong>4 × 400m at 2:00–2:05 each</strong> (2 min walking rest) → <strong>1.5km cool-down</strong>. Maintain sharpness, low volume." },
-    { day:"Day 2", type:"easy", title:"Easy Shakeout Run", dist:5, pace:"7:30–8:10", targetPaceMin:450, targetPaceMax:490,
-      desc:"Short and easy. Keep legs fresh for Day 3." },
-    { day:"Day 3", type:"tempo", title:"5K Time Trial 🏁", dist:4, pace:"all out", targetPaceMin:360, targetPaceMax:420,
-      desc:"<strong>1km easy warm-up</strong> → <strong>5K as fast as you can</strong> → <strong>1km cool-down</strong>. Aim for sub-32:00. Expect 8–12% improvement if you followed the plan." },
+    { day:"Day 1", type:"vo2", title:"400m Sharpeners", dist:5, pace:"mixed", desc:"<strong>1.5km easy warm-up</strong> → <strong>4 × 400m at 2:00–2:05 each</strong> (2 min walking rest) → <strong>1.5km cool-down</strong>." },
+    { day:"Day 2", type:"easy", title:"Easy Shakeout Run", dist:5, pace:"7:30–8:10", desc:"Short and easy. Keep legs fresh for Day 3." },
+    { day:"Day 3", type:"tempo", title:"5K Time Trial 🏁", dist:4, pace:"all out", desc:"<strong>1km easy warm-up</strong> → <strong>5K as fast as you can</strong> → <strong>1km cool-down</strong>. Aim for sub-32:00. Expect 8–12% improvement." },
   ]},
 ];
 
-// ─── STATE ────────────────────────────────────────────────
-const completedKey = 'vo2plan_completed_v2';
-const stravaTokenKey = 'vo2plan_strava_token';
+// ── STATE ──
+const completedKey = 'vo2plan_v3_completed';
+const tokenKey = 'vo2plan_v3_token';
+const linksKey = 'vo2plan_v3_links'; // { "wi-si": activityId }
+
 let completed = JSON.parse(localStorage.getItem(completedKey) || '{}');
-let stravaToken = JSON.parse(localStorage.getItem(stravaTokenKey) || 'null');
-let recentActivities = [];
-let sessionMatches = {}; // sessionId -> activity
+let stravaToken = JSON.parse(localStorage.getItem(tokenKey) || 'null');
+let sessionLinks = JSON.parse(localStorage.getItem(linksKey) || '{}');
+let activities = []; // all fetched strava runs
 
-function saveCompleted() { localStorage.setItem(completedKey, JSON.stringify(completed)); }
-function saveStravaToken(t) { stravaToken = t; localStorage.setItem(stravaTokenKey, JSON.stringify(t)); }
-function disconnectStrava() {
-  stravaToken = null; recentActivities = []; sessionMatches = {};
-  localStorage.removeItem(stravaTokenKey);
-  document.getElementById('stravaUser').style.display = 'none';
-  document.getElementById('stravaConnectBtn').style.display = 'flex';
-  document.getElementById('recentRunsBar').style.display = 'none';
-  document.querySelectorAll('.strava-match').forEach(el => el.remove());
+function save() {
+  localStorage.setItem(completedKey, JSON.stringify(completed));
+  localStorage.setItem(linksKey, JSON.stringify(sessionLinks));
 }
+function saveToken(t) { stravaToken = t; localStorage.setItem(tokenKey, JSON.stringify(t)); }
 
-// ─── OAUTH ────────────────────────────────────────────────
+// ── OAUTH ──
 function getRedirectUri() { return window.location.href.split('?')[0].split('#')[0]; }
-
-function buildStravaAuthUrl() {
-  const params = new URLSearchParams({
-    client_id: STRAVA_CLIENT_ID,
-    redirect_uri: getRedirectUri(),
-    response_type: 'code',
-    approval_prompt: 'auto',
-    scope: STRAVA_SCOPE
-  });
-  return `https://www.strava.com/oauth/authorize?${params}`;
+function stravaAuthUrl() {
+  return `https://www.strava.com/oauth/authorize?` + new URLSearchParams({ client_id: STRAVA_CLIENT_ID, redirect_uri: getRedirectUri(), response_type: 'code', approval_prompt: 'auto', scope: 'read,activity:read' });
 }
-
 async function exchangeCode(code) {
-  const res = await fetch('https://www.strava.com/oauth/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      client_id: STRAVA_CLIENT_ID,
-      client_secret: STRAVA_CLIENT_SECRET,
-      code,
-      grant_type: 'authorization_code'
-    })
-  });
-  return res.json();
+  const r = await fetch('https://www.strava.com/oauth/token', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ client_id: STRAVA_CLIENT_ID, client_secret: STRAVA_CLIENT_SECRET, code, grant_type:'authorization_code' }) });
+  return r.json();
 }
-
-async function refreshToken(refresh_token) {
-  const res = await fetch('https://www.strava.com/oauth/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      client_id: STRAVA_CLIENT_ID,
-      client_secret: STRAVA_CLIENT_SECRET,
-      refresh_token,
-      grant_type: 'refresh_token'
-    })
-  });
-  return res.json();
-}
-
-async function getValidToken() {
+async function refreshIfNeeded() {
   if (!stravaToken) return null;
-  if (Date.now() / 1000 < stravaToken.expires_at - 60) return stravaToken.access_token;
-  const refreshed = await refreshToken(stravaToken.refresh_token);
-  if (refreshed.access_token) {
-    saveStravaToken({ ...stravaToken, ...refreshed });
-    return refreshed.access_token;
-  }
+  if (Date.now()/1000 < stravaToken.expires_at - 60) return stravaToken.access_token;
+  const r = await fetch('https://www.strava.com/oauth/token', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ client_id: STRAVA_CLIENT_ID, client_secret: STRAVA_CLIENT_SECRET, refresh_token: stravaToken.refresh_token, grant_type:'refresh_token' }) });
+  const data = await r.json();
+  if (data.access_token) { saveToken({...stravaToken,...data}); return data.access_token; }
   return null;
 }
 
-// ─── STRAVA API ───────────────────────────────────────────
-async function fetchRecentActivities() {
-  const token = await getValidToken();
+// ── STRAVA API ──
+async function fetchActivities() {
+  const token = await refreshIfNeeded();
   if (!token) return [];
-  const res = await fetch('https://www.strava.com/api/v3/athlete/activities?per_page=30', {
-    headers: { 'Authorization': `Bearer ${token}` }
-  });
-  const acts = await res.json();
-  return Array.isArray(acts) ? acts.filter(a => a.type === 'Run' || a.sport_type === 'Run') : [];
+  const r = await fetch('https://www.strava.com/api/v3/athlete/activities?per_page=50', { headers:{'Authorization':`Bearer ${token}`} });
+  const data = await r.json();
+  return Array.isArray(data) ? data.filter(a => a.type==='Run' || a.sport_type==='Run') : [];
 }
-
-async function fetchAthleteProfile() {
-  const token = await getValidToken();
+async function fetchProfile() {
+  const token = await refreshIfNeeded();
   if (!token) return null;
-  const res = await fetch('https://www.strava.com/api/v3/athlete', {
-    headers: { 'Authorization': `Bearer ${token}` }
-  });
-  return res.json();
+  const r = await fetch('https://www.strava.com/api/v3/athlete', { headers:{'Authorization':`Bearer ${token}`} });
+  return r.json();
 }
 
-// ─── STRAVA UI ────────────────────────────────────────────
-function showStravaUser(profile) {
-  document.getElementById('stravaConnectBtn').style.display = 'none';
-  document.getElementById('stravaUser').style.display = 'block';
-  document.getElementById('stravaName').textContent = profile.firstname + ' ' + profile.lastname;
+// ── UTILS ──
+function secsToPace(s) { const m=Math.floor(s/60); return `${m}:${Math.round(s%60).toString().padStart(2,'0')}`; }
+function fmtDate(str) { return new Date(str).toLocaleDateString('en-GB',{weekday:'short',month:'short',day:'numeric'}); }
+function fmtKm(m) { return (m/1000).toFixed(2); }
+
+// ── DISCONNECT ──
+function disconnectStrava() {
+  stravaToken = null; activities = []; sessionLinks = {};
+  localStorage.removeItem(tokenKey); save();
+  document.getElementById('stravaUser').style.display='none';
+  document.getElementById('stravaConnectBtn').style.display='flex';
+  refreshAllLinkAreas();
+}
+
+// ── SHOW USER ──
+function showUser(profile) {
+  document.getElementById('stravaConnectBtn').style.display='none';
+  document.getElementById('stravaUser').style.display='block';
+  document.getElementById('stravaName').textContent = profile.firstname+' '+profile.lastname;
   if (profile.profile_medium) document.getElementById('stravaAvatar').src = profile.profile_medium;
 }
 
-function secsToPace(secs) {
-  const m = Math.floor(secs / 60);
-  const s = Math.round(secs % 60);
-  return `${m}:${s.toString().padStart(2,'0')}`;
-}
+// ── LINK AREA RENDER ──
+function renderLinkArea(wi, si) {
+  const id = `${wi}-${si}`;
+  const container = document.getElementById(`link-area-${id}`);
+  if (!container) return;
+  container.innerHTML = '';
 
-function renderRecentRuns(activities) {
-  const bar = document.getElementById('recentRunsBar');
-  const chips = document.getElementById('runsChips');
-  chips.innerHTML = '';
-  bar.style.display = 'block';
-  activities.slice(0, 15).forEach(a => {
-    const km = (a.distance / 1000).toFixed(1);
-    const pace = secsToPace(a.moving_time / (a.distance / 1000));
-    const date = new Date(a.start_date_local).toLocaleDateString('en-GB', { month:'short', day:'numeric' });
-    const chip = document.createElement('div');
-    chip.className = 'run-chip' + (sessionMatches[a.id] ? ' matched' : '');
-    chip.textContent = `${date} · ${km}km · ${pace}/km`;
-    chip.title = a.name;
-    chips.appendChild(chip);
-  });
-}
+  const linkedId = sessionLinks[id];
+  const activity = linkedId ? activities.find(a => String(a.id) === String(linkedId)) : null;
 
-function matchActivitiesToSessions(activities) {
-  sessionMatches = {};
-  plan.forEach((w, wi) => {
-    w.sessions.forEach((s, si) => {
-      const id = `${wi}-${si}`;
-      // find best matching activity: closest distance within ±30%
-      let best = null, bestDiff = Infinity;
-      activities.forEach(a => {
-        const km = a.distance / 1000;
-        const diff = Math.abs(km - s.dist);
-        const pct = diff / s.dist;
-        if (pct < 0.35 && diff < bestDiff) { best = a; bestDiff = diff; }
-      });
-      if (best) sessionMatches[id] = best;
-    });
-  });
-}
+  if (!stravaToken) {
+    // Not connected — show nothing (connect button is in header)
+    return;
+  }
 
-function injectStravaMatches() {
-  plan.forEach((w, wi) => {
-    w.sessions.forEach((s, si) => {
-      const id = `${wi}-${si}`;
-      const activity = sessionMatches[id];
-      if (!activity) return;
-      const card = document.querySelector(`.session-card[data-session-id="${id}"]`);
-      if (!card) return;
-      // Remove existing match if any
-      const existing = card.querySelector('.strava-match');
-      if (existing) existing.remove();
+  if (activity) {
+    // Show linked activity + AI feedback
+    const km = fmtKm(activity.distance);
+    const pace = secsToPace(activity.moving_time / (activity.distance/1000));
+    const hr = activity.average_heartrate ? `${Math.round(activity.average_heartrate)} bpm` : '—';
+    const elev = activity.total_elevation_gain ? `${Math.round(activity.total_elevation_gain)}m` : '—';
+    const date = fmtDate(activity.start_date_local);
 
-      const km = (activity.distance / 1000).toFixed(2);
-      const pace = secsToPace(activity.moving_time / (activity.distance / 1000));
-      const date = new Date(activity.start_date_local).toLocaleDateString('en-GB', { weekday:'short', month:'short', day:'numeric' });
-      const hr = activity.average_heartrate ? `${Math.round(activity.average_heartrate)} bpm` : '—';
-      const elev = activity.total_elevation_gain ? `${Math.round(activity.total_elevation_gain)}m` : '—';
-
-      const matchDiv = document.createElement('div');
-      matchDiv.className = 'strava-match';
-      matchDiv.innerHTML = `
-        <div class="strava-match-icon">🟠</div>
-        <div class="strava-match-data">
-          <div class="strava-match-title">Strava: ${activity.name} · ${date}</div>
-          <div class="strava-match-stats">
-            <div class="strava-stat">Dist <span>${km}km</span></div>
-            <div class="strava-stat">Pace <span>${pace}/km</span></div>
-            <div class="strava-stat">HR <span>${hr}</span></div>
-            <div class="strava-stat">Elev <span>${elev}</span></div>
+    container.innerHTML = `
+      <div class="linked-activity">
+        <div class="linked-activity-header">
+          <div class="linked-activity-name">🟠 ${activity.name}</div>
+          <div class="linked-activity-actions">
+            <button class="unlink-btn" onclick="unlinkActivity('${id}')">unlink</button>
           </div>
-          <button class="ai-feedback-btn" onclick="getAIFeedback('${id}', this)">
-            <span>✦</span> Get AI feedback
-          </button>
-          <div class="ai-feedback-box" id="feedback-${id}" style="display:none"></div>
         </div>
-      `;
-      const body = card.querySelector('.session-body');
-      body.appendChild(matchDiv);
-    });
-  });
+        <div class="linked-stats">
+          <div class="linked-stat">Date <span>${date}</span></div>
+          <div class="linked-stat">Dist <span>${km}km</span></div>
+          <div class="linked-stat">Pace <span>${pace}/km</span></div>
+          <div class="linked-stat">HR <span>${hr}</span></div>
+          <div class="linked-stat">Elev <span>${elev}</span></div>
+        </div>
+        <button class="ai-feedback-btn" id="fbtn-${id}" onclick="getAIFeedback('${id}')">
+          <span>✦</span> Get AI feedback
+        </button>
+        <div class="ai-feedback-box" id="fbox-${id}"></div>
+      </div>`;
+  } else {
+    // Show link button
+    container.innerHTML = `
+      <div class="link-activity-area">
+        <button class="link-btn" onclick="openPicker('${id}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#FC4C02"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.172"/></svg>
+          Link Strava activity
+        </button>
+        <div class="activity-picker" id="picker-${id}">
+          <div class="picker-header">
+            <span>SELECT YOUR RUN</span>
+            <span class="picker-close" onclick="closePicker('${id}')">×</span>
+          </div>
+          <div class="picker-list" id="picker-list-${id}"></div>
+        </div>
+      </div>`;
+  }
 }
 
-// ─── AI FEEDBACK ──────────────────────────────────────────
-async function getAIFeedback(sessionId, btn) {
-  const activity = sessionMatches[sessionId];
+function refreshAllLinkAreas() {
+  plan.forEach((w,wi) => w.sessions.forEach((_,si) => renderLinkArea(wi,si)));
+}
+
+// ── PICKER ──
+function openPicker(id) {
+  const list = document.getElementById(`picker-list-${id}`);
+  const picker = document.getElementById(`picker-${id}`);
+  if (!activities.length) {
+    list.innerHTML = `<div class="picker-empty">No Strava activities loaded yet.<br>Make sure you're connected.</div>`;
+  } else {
+    list.innerHTML = activities.slice(0,40).map(a => {
+      const km = fmtKm(a.distance);
+      const pace = secsToPace(a.moving_time / (a.distance/1000));
+      const date = fmtDate(a.start_date_local);
+      return `<div class="picker-item" onclick="linkActivity('${id}', '${a.id}')">
+        <div>
+          <div class="picker-item-name">${a.name}</div>
+          <div class="picker-item-meta">${km}km · ${pace}/km</div>
+        </div>
+        <div class="picker-item-date">${date}</div>
+      </div>`;
+    }).join('');
+  }
+  picker.classList.add('open');
+}
+
+function closePicker(id) {
+  document.getElementById(`picker-${id}`)?.classList.remove('open');
+}
+
+function linkActivity(sessionId, activityId) {
+  sessionLinks[sessionId] = activityId;
+  save();
+  const [wi,si] = sessionId.split('-').map(Number);
+  renderLinkArea(wi, si);
+}
+
+function unlinkActivity(sessionId) {
+  delete sessionLinks[sessionId];
+  save();
+  const [wi,si] = sessionId.split('-').map(Number);
+  renderLinkArea(wi, si);
+}
+
+// ── AI FEEDBACK ──
+async function getAIFeedback(sessionId) {
+  const btn = document.getElementById(`fbtn-${sessionId}`);
+  const box = document.getElementById(`fbox-${sessionId}`);
+  if (!btn || !box) return;
+
+  const actId = sessionLinks[sessionId];
+  const activity = activities.find(a => String(a.id) === String(actId));
   if (!activity) return;
-  const [wi, si] = sessionId.split('-').map(Number);
+
+  const [wi,si] = sessionId.split('-').map(Number);
   const session = plan[wi].sessions[si];
 
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Analysing...';
 
-  const km = (activity.distance / 1000).toFixed(2);
-  const pace = secsToPace(activity.moving_time / (activity.distance / 1000));
-  const paceSeconds = activity.moving_time / (activity.distance / 1000);
+  const km = fmtKm(activity.distance);
+  const pace = secsToPace(activity.moving_time / (activity.distance/1000));
+  const paceSeconds = activity.moving_time / (activity.distance/1000);
   const hr = activity.average_heartrate ? `${Math.round(activity.average_heartrate)} bpm avg` : 'no HR data';
   const elev = activity.total_elevation_gain ? `${Math.round(activity.total_elevation_gain)}m elevation gain` : '';
 
-  const prompt = `You are an expert running coach analysing a session for bowlie, a recreational runner (3-12 months experience) based in Distrito San Carlos, Panama Oeste — hot and humid conditions with hilly terrain (~78m elevation gain per run).
+  const prompt = `You are an expert running coach analysing a session for bowlie, a recreational runner (3-12 months experience) in Distrito San Carlos, Panama Oeste — hot and humid with hilly terrain (~78m elevation gain per run). Goal: improve VO2 max for athletic performance. Est. VDOT: 36-38. Easy pace baseline: 7:53/km.
 
-Their training goal: improve VO2 max for athletic performance. Est. VDOT: 36-38. Easy pace baseline: 7:53/km.
-
-Training zones:
-- Easy: 7:30-8:10/km
-- Tempo: 5:50-6:10/km  
-- VO2 max intervals: 5:10-5:30/km
-- 400m reps: 2:05-2:12 each
+Training zones: Easy 7:30-8:10/km · Tempo 5:50-6:10/km · VO2 max 5:10-5:30/km · 400m reps 2:05-2:12 each.
 
 Planned session (Week ${wi+1}, ${session.day}): ${session.title}
-Session target: ${session.desc.replace(/<[^>]*>/g,'')}
+Target: ${session.desc.replace(/<[^>]*>/g,'')}
 Target distance: ${session.dist}km
 
 Actual Strava data:
 - Activity: ${activity.name}
-- Distance: ${km}km
-- Average pace: ${pace}/km (${Math.round(paceSeconds)} sec/km)
-- Heart rate: ${hr}
-- ${elev}
+- Distance: ${km}km · Avg pace: ${pace}/km (${Math.round(paceSeconds)} sec/km)
+- Heart rate: ${hr} · ${elev}
 - Moving time: ${Math.floor(activity.moving_time/60)}min
 
-Give concise, direct coaching feedback in 3-4 sentences. Cover: (1) how the actual pace compared to target, (2) one key observation about performance, (3) one specific actionable tip for the next session of this type. Be honest, encouraging but direct. Account for Panama heat/humidity adding ~20-30 sec/km to effort. Keep it under 100 words.`;
+Give direct, honest coaching feedback in 3-4 sentences: (1) how their actual pace compared to target, (2) one key observation, (3) one specific actionable tip for next time. Be encouraging but honest. Account for Panama heat adding ~20-30 sec/km. Under 100 words.`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, messages:[{role:'user',content:prompt}] })
     });
-    const data = await response.json();
-    const text = data.content?.map(c => c.text || '').join('') || 'Unable to generate feedback.';
-    const box = document.getElementById(`feedback-${sessionId}`);
-    box.style.display = 'block';
+    const data = await res.json();
+    const text = data.content?.map(c=>c.text||'').join('') || 'Unable to generate feedback.';
     box.textContent = text;
+    box.style.display = 'block';
     btn.style.display = 'none';
-  } catch (e) {
+  } catch(e) {
     btn.disabled = false;
-    btn.innerHTML = '<span>✦</span> Retry feedback';
+    btn.innerHTML = '<span>✦</span> Retry';
   }
 }
 
-// ─── PROGRESS ─────────────────────────────────────────────
+// ── PROGRESS ──
 function updateProgress() {
-  let total = 0, done = 0;
-  plan.forEach((w, wi) => { w.sessions.forEach((s, si) => { total++; if (completed[`${wi}-${si}`]) done++; }); });
-  const pct = Math.round((done / total) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
+  let total=0, done=0;
+  plan.forEach((w,wi) => w.sessions.forEach((_,si) => { total++; if(completed[`${wi}-${si}`]) done++; }));
+  document.getElementById('progressFill').style.width = Math.round(done/total*100)+'%';
   document.getElementById('progressText').textContent = `${done} of ${total} sessions complete`;
 }
 
-// ─── RENDER ───────────────────────────────────────────────
+// ── RENDER ──
 function renderNav() {
   const nav = document.getElementById('weekNav');
-  plan.forEach((w, i) => {
+  plan.forEach((w,i) => {
     const btn = document.createElement('button');
-    btn.className = 'week-btn' + (w.recovery ? ' recovery' : '') + (i === 0 ? ' active' : '');
-    btn.textContent = `W${w.week}${w.recovery ? ' ↓' : ''}`;
+    btn.className = 'week-btn'+(w.recovery?' recovery':'')+(i===0?' active':'');
+    btn.textContent = `W${w.week}${w.recovery?' ↓':''}`;
     btn.onclick = () => {
-      document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.week-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      document.querySelectorAll('.week-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.week-panel').forEach(p=>p.classList.remove('active'));
       document.getElementById(`panel-${i}`).classList.add('active');
     };
     nav.appendChild(btn);
@@ -591,14 +536,14 @@ function renderNav() {
 
 function renderPanels() {
   const container = document.getElementById('weekPanels');
-  plan.forEach((w, wi) => {
+  plan.forEach((w,wi) => {
     const panel = document.createElement('div');
-    panel.className = 'week-panel' + (wi === 0 ? ' active' : '');
+    panel.className = 'week-panel'+(wi===0?' active':'');
     panel.id = `panel-${wi}`;
 
     let html = `<div class="week-header">
       <div>
-        <div class="week-title" style="color:${w.recovery ? 'var(--accent2)' : 'var(--text)'}">${w.title}</div>
+        <div class="week-title" style="color:${w.recovery?'var(--accent2)':'var(--text)'}">${w.title}</div>
         <div class="week-focus">${w.focus}</div>
       </div>
       <div class="week-stats">
@@ -607,28 +552,27 @@ function renderPanels() {
       </div>
     </div>`;
 
-    if (w.recovery) {
-      html += `<div class="recovery-banner"><div class="recovery-icon">🔋</div><div class="recovery-text"><strong>Recovery week — drop volume 30%.</strong> VO2 max gains happen during rest and recovery. Resist the urge to do more. Come back to week ${wi + 2 <= 8 ? wi + 2 : 'the next block'} fresher and stronger.</div></div>`;
-    }
+    if (w.recovery) html += `<div class="recovery-banner"><div class="recovery-icon">🔋</div><div class="recovery-text"><strong>Recovery week — drop volume 30%.</strong> VO2 max gains happen during rest. Resist the urge to do more.</div></div>`;
 
     html += '<div class="sessions">';
-    w.sessions.forEach((s, si) => {
+    w.sessions.forEach((s,si) => {
       const id = `${wi}-${si}`;
       const isDone = !!completed[id];
-      html += `<div class="session-card ${s.type}" data-session-id="${id}" style="opacity:${isDone ? 0.5 : 1}">
+      html += `<div class="session-card ${s.type}" data-id="${id}" style="opacity:${isDone?0.5:1}">
         <div>
           <div class="session-day">${s.day}</div>
-          <div class="session-type-badge">${s.type === 'vo2' ? 'VO2 Max' : s.type.charAt(0).toUpperCase() + s.type.slice(1)}</div>
+          <div class="session-type-badge">${s.type==='vo2'?'VO2 Max':s.type.charAt(0).toUpperCase()+s.type.slice(1)}</div>
         </div>
         <div class="session-body">
           <div class="session-title">${s.title}</div>
           <div class="session-desc">${s.desc}</div>
+          <div id="link-area-${id}"></div>
         </div>
         <div class="session-meta">
           <div class="session-dist">${s.dist}<span class="session-dist-unit"> km</span></div>
           <div class="session-pace">${s.pace}/km</div>
         </div>
-        <div class="session-check${isDone ? ' done' : ''}" data-id="${id}" title="Mark as done"></div>
+        <div class="session-check${isDone?' done':''}" data-id="${id}" title="Mark complete"></div>
       </div>`;
     });
     html += '</div>';
@@ -648,7 +592,7 @@ function renderPanels() {
     el.onclick = () => {
       const id = el.dataset.id;
       completed[id] = !completed[id];
-      saveCompleted();
+      save();
       el.classList.toggle('done', completed[id]);
       el.closest('.session-card').style.opacity = completed[id] ? '0.5' : '1';
       updateProgress();
@@ -657,57 +601,45 @@ function renderPanels() {
 }
 
 function getWeekTips(wi) {
-  const tips = [
-    [{ title:"Panama heat", body:"Add 20–30 sec/km to all paces on hot/humid days. Use perceived effort as your primary guide, not the watch." },{ title:"Easy means easy", body:"If you can't hold a full conversation, you're running too fast. Slow down — it's smart training." },{ title:"Elevation factor", body:"Your 78m of gain adds ~15–20 sec/km equivalent effort. Your actual fitness is better than flat pace suggests." }],
-    [{ title:"RPE scale", body:"Easy = 5/10. Tempo = 7/10. VO2 max intervals = 9/10. The numbers only matter if you nail the effort levels." },{ title:"Interval recovery", body:"The 3-minute jog between intervals isn't optional — it's what lets you sustain quality on each rep." }],
-    [{ title:"Peak week alert", body:"Week 3 is your hardest week. Don't skip the easy run — it's active recovery, not extra hard work." },{ title:"Sleep matters", body:"VO2 max adaptations happen during sleep. Aim for 7–9 hours, especially after hard sessions." }],
-    [{ title:"Why recovery works", body:"VO2 max improvements happen when your body repairs itself after stress. Week 4 is where weeks 1–3 become fitness gains." },{ title:"Don't add sessions", body:"Resist adding extra runs this week. Rest is part of the plan." }],
-    [{ title:"400m rep form", body:"Drive your arms, lean slightly forward, land under your hips. Fast running is a skill — use the warm-up to rehearse it." },{ title:"Walking rest", body:"Walk (don't jog) during rest periods. Full recovery between reps lets you maintain quality on each one." }],
-    [{ title:"Fitness check", body:"By now your easy runs should feel noticeably more comfortable than week 1. That's real VO2 max adaptation." },{ title:"Tempo pace", body:"5:40–6:00/km should feel purposeful and controlled. If it feels like a sprint, you've gone out too fast." }],
-    [{ title:"Peak week", body:"This is the hardest week of the plan. Fuel and hydrate well. Expect heavy legs on Day 2 — that's normal." },{ title:"10 rep 400s", body:"Treat this session like a mini-race. Focus on each rep individually — don't think about rep 10 on rep 3." }],
-    [{ title:"Time trial prep", body:"Day 3 is your 5K test. Don't run hard on Days 1–2. Fresh legs = faster time." },{ title:"Expected improvement", body:"Aim for 8–12% faster than your starting easy pace. That's a meaningful VO2 max jump in 8 weeks." }],
+  const t = [
+    [{title:"Panama heat",body:"Add 20–30 sec/km on hot/humid days. Use perceived effort as your primary guide."},{title:"Easy means easy",body:"If you can't hold a full conversation, you're going too fast. Slow down."},{title:"Elevation factor",body:"Your 78m of gain adds ~15–20 sec/km equivalent effort."}],
+    [{title:"RPE scale",body:"Easy=5/10 · Tempo=7/10 · VO2 max=9/10. Nailing effort matters more than exact pace."},{title:"Interval recovery",body:"The 3-min jog between intervals lets you sustain quality on each rep. Don't skip it."}],
+    [{title:"Peak week alert",body:"Week 3 is your hardest. Don't skip the easy run — it's active recovery."},{title:"Sleep matters",body:"VO2 max adaptations happen during sleep. Aim for 7–9hrs after hard sessions."}],
+    [{title:"Why recovery works",body:"Week 4 is where weeks 1–3 become actual fitness gains. Your body adapts during rest."},{title:"Don't add sessions",body:"Resist adding extra runs. Rest is a non-negotiable part of the plan."}],
+    [{title:"400m rep form",body:"Drive arms, lean forward slightly, land under your hips. Use the warm-up to rehearse fast running."},{title:"Walking rest",body:"Walk (don't jog) the 90s rest periods. Full recovery = quality reps."}],
+    [{title:"Fitness check",body:"Easy runs should feel noticeably more comfortable than week 1. That's VO2 max adaptation happening."},{title:"Tempo pace",body:"5:40–6:00/km should feel purposeful, not desperate. If sprinting, you went out too fast."}],
+    [{title:"Peak week",body:"Hardest week of the plan. Fuel and hydrate well. Heavy legs on Day 2 is normal."},{title:"10 rep 400s",body:"Focus on each rep individually. Don't think about rep 10 while on rep 3."}],
+    [{title:"Time trial prep",body:"Don't run hard on Days 1–2. Fresh legs = faster time trial."},{title:"Expected gains",body:"Aim for 8–12% faster than your starting pace. That's a real VO2 max jump in 8 weeks."}],
   ];
-  return tips[wi] || [];
+  return t[wi]||[];
 }
 
-// ─── INIT ─────────────────────────────────────────────────
+// ── INIT ──
 async function init() {
   renderNav();
   renderPanels();
   updateProgress();
+  document.getElementById('stravaConnectBtn').href = stravaAuthUrl();
 
-  // Set up connect button
-  document.getElementById('stravaConnectBtn').href = buildStravaAuthUrl();
-
-  // Handle OAuth callback
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
+
   if (code && !stravaToken) {
-    // Clean URL
-    window.history.replaceState({}, document.title, window.location.pathname);
+    window.history.replaceState({}, '', window.location.pathname);
     const token = await exchangeCode(code);
-    if (token.access_token) {
-      saveStravaToken(token);
-      await loadStravaData();
-    }
+    if (token.access_token) { saveToken(token); await loadStrava(); }
   } else if (stravaToken) {
-    await loadStravaData();
+    await loadStrava();
   }
 }
 
-async function loadStravaData() {
-  const [profile, activities] = await Promise.all([fetchAthleteProfile(), fetchRecentActivities()]);
-  if (profile && profile.id) {
-    showStravaUser(profile);
-    stravaToken = { ...stravaToken, athlete: profile };
-    saveStravaToken(stravaToken);
-  }
-  if (activities.length) {
-    recentActivities = activities;
-    matchActivitiesToSessions(activities);
-    renderRecentRuns(activities);
-    injectStravaMatches();
-  }
+async function loadStrava() {
+  document.getElementById('stravaLoadingMsg').style.display = 'flex';
+  const [profile, acts] = await Promise.all([fetchProfile(), fetchActivities()]);
+  document.getElementById('stravaLoadingMsg').style.display = 'none';
+  if (profile?.id) showUser(profile);
+  if (acts.length) { activities = acts; }
+  refreshAllLinkAreas();
 }
 
 init();
