@@ -257,10 +257,10 @@ a{color:inherit;text-decoration:none;}
       </div>
     </div>
     <div class="strava-panel" id="stravaPanel">
-      <a id="stravaConnectBtn" class="strava-btn" href="#">
+      <button id="stravaConnectBtn" class="strava-btn" onclick="connectStrava()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.172"/></svg>
         Connect Strava
-      </a>
+      </button>
       <div id="stravaUser" style="display:none">
         <div class="strava-connected">
           <img id="stravaAvatar" class="strava-avatar" src="" alt="">
@@ -578,9 +578,28 @@ function renderVDOT(){
 // ════════════════════════════════════════════
 // OAUTH
 // ════════════════════════════════════════════
-function getRedirectUri(){ return window.location.href.split('?')[0].split('#')[0]; }
+function getRedirectUri(){
+  // Always use the clean GitHub Pages URL
+  const loc = window.location;
+  return loc.protocol + '//' + loc.host + loc.pathname.replace(/\/$/,'');
+}
 function stravaAuthUrl(){
-  return `https://www.strava.com/oauth/authorize?`+new URLSearchParams({client_id:CONFIG.STRAVA_CLIENT_ID,redirect_uri:getRedirectUri(),response_type:'code',approval_prompt:'auto',scope:'read,activity:read'});
+  const redirect = getRedirectUri();
+  const params = new URLSearchParams({
+    client_id: CONFIG.STRAVA_CLIENT_ID,
+    redirect_uri: redirect,
+    response_type: 'code',
+    approval_prompt: 'auto',
+    scope: 'read,activity:read'
+  });
+  return `https://www.strava.com/oauth/authorize?${params}`;
+}
+function connectStrava(){
+  const url = stravaAuthUrl();
+  console.log('Redirecting to:', url);
+  window.location.href = url;
+}
+  window.location.href = stravaAuthUrl();
 }
 async function exchangeCode(code){
   const r=await fetch('https://www.strava.com/oauth/token',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_id:CONFIG.STRAVA_CLIENT_ID,client_secret:CONFIG.STRAVA_CLIENT_SECRET,code,grant_type:'authorization_code'})});
@@ -998,7 +1017,7 @@ async function init(){
   renderPanels();
   updateProgress();
   renderVDOT();
-  document.getElementById('stravaConnectBtn').href=stravaAuthUrl();
+  
 
   // Restore start date
   if(startDate){
